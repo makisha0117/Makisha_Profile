@@ -1,0 +1,485 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern SaaS Pricing Cards</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f5f3ff, #eef2ff);
+            color: #1e1b3a;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1150px;
+            margin: auto;
+            padding: 70px 20px;
+            text-align: center;
+        }
+
+        .tag {
+            color: #7557e8;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 3px;
+        }
+
+        h1 {
+            font-size: clamp(34px, 5vw, 52px);
+            margin: 18px 0;
+            font-weight: 800;
+        }
+
+        h1 span {
+            color: #7557e8;
+        }
+
+        .subtitle {
+            color: #85849b;
+            font-size: 15px;
+        }
+
+        /* Billing Toggle */
+
+        .billing {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin: 40px 0 55px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .billing-label {
+            color: #9290a5;
+        }
+
+        .billing-label.active {
+            color: #25213e;
+        }
+
+        .switch {
+            position: relative;
+            width: 52px;
+            height: 28px;
+        }
+
+        .switch input {
+            display: none;
+        }
+
+        .slider {
+            position: absolute;
+            inset: 0;
+            background: #7557e8;
+            border-radius: 30px;
+            cursor: pointer;
+        }
+
+        .slider::before {
+            content: "";
+            position: absolute;
+            height: 20px;
+            width: 20px;
+            left: 4px;
+            bottom: 4px;
+            background: white;
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+
+        input:checked + .slider::before {
+            transform: translateX(24px);
+        }
+
+        .discount {
+            background: #e7e0ff;
+            color: #7557e8;
+            padding: 7px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+        }
+
+        /* Pricing Cards */
+
+        .pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            align-items: stretch;
+        }
+
+        .card {
+            background: white;
+            padding: 38px 30px;
+            border-radius: 18px;
+            border: 1px solid #e8e5f5;
+            text-align: left;
+            position: relative;
+            transition: 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 45px rgba(100, 75, 180, 0.15);
+        }
+
+        .featured {
+            border: 2px solid #7557e8;
+            box-shadow: 0 12px 35px rgba(117, 87, 232, 0.12);
+        }
+
+        .popular {
+            position: absolute;
+            top: -15px;
+            right: 20px;
+            background: #7557e8;
+            color: white;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .plan {
+            font-size: 21px;
+            font-weight: 700;
+        }
+
+        .description {
+            color: #9391a4;
+            font-size: 13px;
+            line-height: 1.7;
+            margin: 12px 0;
+            min-height: 44px;
+        }
+
+        .price {
+            display: flex;
+            align-items: baseline;
+            margin: 25px 0;
+        }
+
+        .currency {
+            font-size: 23px;
+            font-weight: 700;
+        }
+
+        .amount {
+            font-size: 48px;
+            font-weight: 800;
+            letter-spacing: -2px;
+        }
+
+        .period {
+            font-size: 12px;
+            color: #9391a4;
+            margin-left: 5px;
+        }
+
+        /* Buttons */
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #7557e8;
+            border-radius: 9px;
+            background: white;
+            color: #7557e8;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #eee9ff;
+        }
+
+        .btn-primary {
+            background: #7557e8;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5e40d0;
+        }
+
+        /* Features */
+
+        .features {
+            margin-top: 30px;
+        }
+
+        .features h4 {
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+
+        .features p {
+            font-size: 13px;
+            color: #5e5c73;
+            margin-bottom: 17px;
+        }
+
+        .features .disabled {
+            color: #bcbac8;
+        }
+
+        footer {
+            margin-top: 65px;
+            color: #9997aa;
+            font-size: 12px;
+        }
+
+        /* Tablet */
+
+        @media (max-width: 850px) {
+            .pricing-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Mobile */
+
+        @media (max-width: 550px) {
+            .container {
+                padding: 50px 16px;
+            }
+
+            .pricing-cards {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .card {
+                padding: 35px 25px;
+            }
+
+            .billing {
+                gap: 9px;
+            }
+
+            h1 {
+                font-size: 35px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                transition: none !important;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="tag">OUR PRICING</div>
+
+        <h1>Simple Pricing.<br>
+            <span>Powerful Results.</span>
+        </h1>
+
+        <p class="subtitle">
+            Choose the perfect plan for your business.
+            Start growing today.
+        </p>
+
+        <!-- Monthly / Yearly Toggle -->
+
+        <div class="billing">
+
+            <span id="monthlyLabel" class="billing-label active">
+                Monthly
+            </span>
+
+            <label class="switch">
+                <input type="checkbox" id="billingToggle">
+                <span class="slider"></span>
+            </label>
+
+            <span id="yearlyLabel" class="billing-label">
+                Yearly
+            </span>
+
+            <span class="discount">Save 20%</span>
+
+        </div>
+
+        <!-- Pricing Cards -->
+
+        <div class="pricing-cards">
+
+            <!-- Starter Plan -->
+
+            <div class="card">
+
+                <div class="plan">Starter</div>
+
+                <p class="description">
+                    Perfect for individuals getting started.
+                </p>
+
+                <div class="price">
+                    <span class="currency">$</span>
+                    <span class="amount" data-monthly="9" data-yearly="7">9</span>
+                    <span class="period">/ month</span>
+                </div>
+
+                <button class="btn">Get Started</button>
+
+                <div class="features">
+                    <h4>What's included:</h4>
+                    <p>✓ 5 Projects</p>
+                    <p>✓ Basic Analytics</p>
+                    <p>✓ 10GB Storage</p>
+                    <p>✓ Email Support</p>
+                    <p class="disabled">✕ Advanced Reports</p>
+                    <p class="disabled">✕ Priority Support</p>
+                </div>
+
+            </div>
+
+            <!-- Professional Plan -->
+
+            <div class="card featured">
+
+                <div class="popular">MOST POPULAR</div>
+
+                <div class="plan">Professional</div>
+
+                <p class="description">
+                    Best for growing businesses and teams.
+                </p>
+
+                <div class="price">
+                    <span class="currency">$</span>
+                    <span class="amount" data-monthly="29" data-yearly="23">29</span>
+                    <span class="period">/ month</span>
+                </div>
+
+                <button class="btn btn-primary">Get Started</button>
+
+                <div class="features">
+                    <h4>What's included:</h4>
+                    <p>✓ Unlimited Projects</p>
+                    <p>✓ Advanced Analytics</p>
+                    <p>✓ 100GB Storage</p>
+                    <p>✓ Priority Email Support</p>
+                    <p>✓ Advanced Reports</p>
+                    <p class="disabled">✕ Dedicated Manager</p>
+                </div>
+
+            </div>
+
+            <!-- Enterprise Plan -->
+
+            <div class="card">
+
+                <div class="plan">Enterprise</div>
+
+                <p class="description">
+                    For large teams needing more power.
+                </p>
+
+                <div class="price">
+                    <span class="currency">$</span>
+                    <span class="amount" data-monthly="79" data-yearly="63">79</span>
+                    <span class="period">/ month</span>
+                </div>
+
+                <button class="btn">Get Started</button>
+
+                <div class="features">
+                    <h4>What's included:</h4>
+                    <p>✓ Unlimited Projects</p>
+                    <p>✓ Custom Analytics</p>
+                    <p>✓ Unlimited Storage</p>
+                    <p>✓ 24/7 Support</p>
+                    <p>✓ Advanced Reports</p>
+                    <p>✓ Dedicated Manager</p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <footer>
+            © 2026 SaaS Pricing. All rights reserved.
+        </footer>
+
+    </div>
+
+    <!-- JavaScript -->
+
+    <script>
+
+        const billingToggle =
+            document.getElementById("billingToggle");
+
+        const amounts =
+            document.querySelectorAll(".amount");
+
+        const periods =
+            document.querySelectorAll(".period");
+
+        const monthlyLabel =
+            document.getElementById("monthlyLabel");
+
+        const yearlyLabel =
+            document.getElementById("yearlyLabel");
+
+        billingToggle.addEventListener("change", function () {
+
+            const isYearly = billingToggle.checked;
+
+            amounts.forEach(function (amount) {
+
+                if (isYearly) {
+                    amount.textContent = amount.dataset.yearly;
+                } else {
+                    amount.textContent = amount.dataset.monthly;
+                }
+
+            });
+
+            periods.forEach(function (period) {
+
+                period.textContent = isYearly
+                    ? "/ month, billed yearly"
+                    : "/ month";
+
+            });
+
+            monthlyLabel.classList.toggle(
+                "active", !isYearly
+            );
+
+            yearlyLabel.classList.toggle(
+                "active", isYearly
+            );
+
+        });
+
+    </script>
+
+</body>
+</html>
